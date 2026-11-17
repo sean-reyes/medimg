@@ -14,6 +14,7 @@ X = df.drop(columns=["target"])
 y = df["target"]
 
 # Split first, so nothing from the test set influences the fills
+# Divides the total number of 1 and above (those with heart disease) to total cases to find baseline accuracy.
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42, stratify=y
 )
