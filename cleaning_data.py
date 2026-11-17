@@ -24,6 +24,7 @@ df["slope"] = df["slope"].fillna("unknown")
 # Target
 df["target"] = (df["num"] > 0).astype(int)
 df = df.drop(columns=["num"])
+print("test")
 
 print(df.shape)
 print(df.isna().sum())
