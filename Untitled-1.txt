@@ -1,0 +1,34 @@
+Baseline/Normal:
+    Always guess majority: 0.553 (+/- 0.003)
+    Logistic regression: 0.816 (+/- 0.004)
+    Random forest: 0.801 (+/- 0.012)
+
+Without "dataset" categorical:
+    Always guess majority: 0.553 (+/- 0.003)
+    Logistic regression: 0.798 (+/- 0.021)
+    Random forest: 0.805 (+/- 0.018)
+
+Without "cp":
+    Always guess majority: 0.553 (+/- 0.003)
+    Logistic regression: 0.819 (+/- 0.010)
+    Random forest: 0.787 (+/- 0.016)
+
+Without restecg:
+    Always guess majority: 0.553 (+/- 0.003)
+    Logistic regression: 0.809 (+/- 0.010)
+    Random forest: 0.797 (+/- 0.008)
+
+Without sex:
+    Always guess majority: 0.553 (+/- 0.003)
+    Logistic regression: 0.809 (+/- 0.009)
+    Random forest: 0.796 (+/- 0.014)
+
+Without fbs:
+    Always guess majority: 0.553 (+/- 0.003)
+    Logistic regression: 0.816 (+/- 0.007)
+    Random forest: 0.808 (+/- 0.015)
+
+Without exang:
+    Always guess majority: 0.553 (+/- 0.003)
+    Logistic regression: 0.805 (+/- 0.023)
+    Random forest: 0.807 (+/- 0.011)

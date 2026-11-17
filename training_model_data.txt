@@ -1,0 +1,14 @@
+Always guess majority: 0.553 (+/- 0.003)
+Logistic regression: 0.816 (+/- 0.004)
+Random forest: 0.801 (+/- 0.012)
+              precision    recall  f1-score   support
+
+           0       0.86      0.74      0.80        82
+           1       0.81      0.90      0.86       102
+
+    accuracy                           0.83       184
+   macro avg       0.84      0.82      0.83       184
+weighted avg       0.83      0.83      0.83       184
+
+[[61 21]
+ [10 92]]
