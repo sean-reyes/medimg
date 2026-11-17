@@ -16,7 +16,7 @@ y = df["target"]
 # Split first, so nothing from the test set influences the fills
 # Divides the total number of 1 and above (those with heart disease) to total cases to find baseline accuracy.
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42, stratify=y
+    X, y, test_size=0.2, random_state=42, stratify=y  #Split into 734 training 184 testing
 )
 
 numeric_cols = ["age", "trestbps", "chol", "thalch", "oldpeak"]
@@ -53,3 +53,6 @@ final.fit(X_train, y_train)
 pred = final.predict(X_test)
 print(classification_report(y_test, pred))
 print(confusion_matrix(y_test, pred))
+
+import joblib
+joblib.dump(final, "models/model.joblib")
