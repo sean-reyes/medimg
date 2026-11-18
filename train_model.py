@@ -54,5 +54,5 @@ pred = final.predict(X_test)
 print(classification_report(y_test, pred))
 print(confusion_matrix(y_test, pred))
 
-# import joblib
-# joblib.dump(final, "models/model.joblib")
+import joblib
+joblib.dump(final, "models/model.joblib")
