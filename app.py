@@ -23,6 +23,14 @@ glucose = st.number_input("Fasting blood sugar (mg/dl)", 40, 400, 95)
 fbs = 1 if glucose > 120 else 0
 restecg = st.selectbox("Resting ECG", ["normal", "lv hypertrophy", "st-t abnormality"])
 thalch = st.number_input("Max heart rate", 60, 210, 140)
+target_hr = 0.85 * (220 - age)
+if thalch < target_hr:
+    st.warning(
+        f"Max heart rate is below 85% of the age-predicted maximum ({target_hr:.0f} bpm). "
+        "A real exercise test this submaximal can be considered inconclusive, and the "
+        "exercise-related inputs (ST depression, slope, exercise chest pain) may be less reliable. "
+        "The model does not account for this."
+    )
 exang = st.selectbox("Experiencing exercise-induced angina?", ["NO", "YES"])
 oldpeak = st.number_input("ST depression in mm (oldpeak)", -3.0, 7.0, 1.0)
 slope = st.selectbox("Slope", ["upsloping", "flat", "downsloping", "unknown"])
