@@ -20,8 +20,8 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 
 numeric_cols = ["age", "trestbps", "chol", "thalch", "oldpeak"]
-binary_cols = ["fbs", "exang"]
-categorical_cols = ["sex", "dataset", "cp", "restecg", "slope"]
+binary_cols = ["fbs", "exang"]   #fasting blood sugar below or above 120mg/dl
+categorical_cols = ["sex", "dataset",  "cp", "restecg", "slope"]
 
 preprocess = ColumnTransformer([
     ("num", Pipeline([
@@ -31,7 +31,7 @@ preprocess = ColumnTransformer([
     ("bin", SimpleImputer(strategy="most_frequent"), binary_cols),
     ("cat", Pipeline([
         ("fill", SimpleImputer(strategy="most_frequent")),
-        ("onehot", OneHotEncoder(handle_unknown="ignore")),
+        ("onehot", OneHotEncoder(handle_unknown="ignore")),  # Turns each cat into subcolumns "0/1" for each cat, if unknown cat is present, ignore
     ]), categorical_cols),
 ])
 
@@ -54,5 +54,5 @@ pred = final.predict(X_test)
 print(classification_report(y_test, pred))
 print(confusion_matrix(y_test, pred))
 
-import joblib
-joblib.dump(final, "models/model.joblib")
+# import joblib
+# joblib.dump(final, "models/model.joblib")
