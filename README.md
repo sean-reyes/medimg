@@ -10,7 +10,7 @@ Given a patient's age, sex, chest pain type, blood pressure, cholesterol, heart 
  
 ## Data
  
-- **Source:** UCI Heart Disease dataset (add the link to where you downloaded it).
+- **Source:** UCI Heart Disease dataset (https://www.kaggle.com/datasets/redwankarimsony/heart-disease-data/data).
 - **Size:** 920 patients, 16 columns in the raw file, collected at several hospitals (the `dataset` column records which one).
 - **Original label:** `num`, a diagnosis from 0 (no disease) to 4 (most severe).
 - **Label used here:** `target`, which is 1 if `num` > 0 and 0 otherwise. This turns a 5-way problem into a yes/no one.
