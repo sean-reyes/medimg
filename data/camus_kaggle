@@ -1,0 +1,10 @@
+import h5py
+from pathlib import Path
+
+DATA_PATH = r"c:\Users\gabit\Downloads\subject_based_dataset.hdf5\subject_based_dataset.hdf5"
+
+with h5py.File(DATA_PATH, "r") as f:
+    def show(name, obj):
+        if isinstance(obj, h5py.Dataset):
+            print(name, obj.shape, obj.dtype)
+    f.visititems(show)
