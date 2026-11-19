@@ -1,0 +1,4 @@
+# Ignore scikit-learn and PyTorch model binaries
+*.joblib
+*.pt
+*.pth
