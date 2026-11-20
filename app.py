@@ -152,20 +152,119 @@ if es:
     b.image(Image.open(es), use_container_width=True)
 
 
-def estimate_ef(ed_img, es_img):
-    """Plug the trained segmentation model in here.
-
-    Return (ef_percent, confidence_0_to_1), or None when the scan is rejected or the model is unsure.
-    """
-    return None
+@st.cache_resource
+def load_echo():
+    import echo_model
+    return echo_model, echo_model.load_model()
 
 
 if st.button("Analyse frames", disabled=not (ed and es)):
-    result = estimate_ef(Image.open(ed), Image.open(es))
-    if result is None:
-        st.info("Unsure: no number is shown, because no model is connected or its confidence was too low.")
+    try:
+        echo_model, echo_net = load_echo()
+    except FileNotFoundError:
+        st.error("Echo model file not found. Run train_camus.py first (it saves models/camus_unet_192.pt).")
     else:
-        ef, conf = result
-        st.metric("Estimated ejection fraction", f"{ef:.0f}%")
-        st.progress(float(conf))
-        st.caption(f"Confidence {conf:.0%}. Check the outline against the image before relying on it.")
+        res = echo_model.analyse(echo_net, Image.open(ed), Image.open(es))
+        c1, c2 = st.columns(2)
+        c1.image(res["ed_overlay"], caption="End of filling, ventricle outlined in red", use_container_width=True)
+        c2.image(res["es_overlay"], caption="End of squeezing, ventricle outlined in red", use_container_width=True)
+        if res["status"] == "reject":
+            st.error("Scan rejected. " + " ".join(res["messages"]) + " Please upload a new pair of frames.")
+        elif res["status"] == "unsure":
+            st.info("Unsure, so no number is shown. " + " ".join(res["messages"]))
+        else:
+            st.metric("Estimated ejection fraction", f"{res['ef']:.0%}")
+            st.caption(echo_model.ERROR_NOTE)
+        st.caption("Check the outlines against the images before relying on any result.")
+
+
+# ---------- Section 3: ECG pattern classifier ----------
+from pathlib import Path
+
+import numpy as np
+
+st.divider()
+st.header("ECG pattern classifier (research prototype)")
+st.warning("Research prototype. Not validated for clinical use. It estimates ECG patterns, not diagnoses.")
+
+ECG_LABELS = {
+    "NORM": "Normal ECG",
+    "MI": "Pattern consistent with myocardial infarction",
+    "STTC": "ST/T change",
+    "CD": "Conduction disturbance",
+    "HYP": "Hypertrophy",
+}
+
+ecg_file = st.file_uploader(
+    "ECG as a CSV: 1000 rows (10 seconds at 100 Hz) by 12 lead columns, no header", type=["csv"]
+)
+if ecg_file:
+    sig = pd.read_csv(ecg_file, header=None).to_numpy(dtype=float)
+    if sig.shape != (1000, 12):
+        st.error(f"Expected 1000 rows by 12 columns, got {sig.shape[0]} by {sig.shape[1]}.")
+    else:
+        st.line_chart(pd.DataFrame({"Lead I": sig[:, 0]}))
+        if not Path("models/ecg_model.joblib").exists():
+            st.info("Unsure: no ECG model found yet. Run train_ecg.py first.")
+        else:
+            bundle = joblib.load("models/ecg_model.joblib")
+            x = sig[None]  # (1, 1000, 12); must match features() in train_ecg.py
+            feats = np.concatenate([x.mean(1), x.std(1), x.min(1), x.max(1)], axis=1)
+            probs = [float(p[0, 1]) for p in bundle["model"].predict_proba(feats)]
+            for cls, p in zip(bundle["classes"], probs):
+                st.write(f"{ECG_LABELS.get(cls, cls)}: {p:.0%}")
+                st.progress(p)
+            if max(probs) < 0.5:
+                st.info("Unsure: no category reached 50%, so treat this result as inconclusive.")
+            st.caption("Each category is estimated separately, so a record can match more than one.")
+
+
+# ---------- Sections 4 and 5: more scan types (prototype stubs) ----------
+def scan_section(number, title, upload_label, file_types, classes, predict, note, multiple=False):
+    """One upload box, one button, one probability bar per class, and an 'unsure' fallback."""
+    st.divider()
+    st.header(f"{title}")
+    st.warning("Research prototype. Not validated for clinical use. It estimates patterns, not diagnoses.")
+    files = st.file_uploader(upload_label, type=file_types, accept_multiple_files=multiple, key=title)
+    if files and st.button("Analyse", key=title + "_go"):
+        probs = predict(files)
+        if probs is None:
+            st.info("Unsure: no model is connected yet, so no result is shown.")
+        else:
+            for cls, p in zip(classes, probs):
+                st.write(f"{cls}: {p:.0%}")
+                st.progress(float(p))
+            if max(probs) < 0.5:
+                st.info("Unsure: no category reached 50%, so treat this result as inconclusive.")
+    st.caption(note)
+
+
+def predict_mri(file):
+    """Plug in: segment the ventricles and heart muscle, compute volumes, ejection fraction and
+    muscle mass, then classify those measurements. Return five probabilities, or None."""
+    return None
+
+
+def predict_valve(files):
+    """Plug in: classify each echo image by view, keep the aortic valve views, combine them into
+    one study-level result. Return three probabilities, or None."""
+    return None
+
+
+scan_section(
+    4, "Cardiac MRI: cardiomyopathy patterns (ACDC)",
+    "Cine MRI file (NIfTI, .nii or .nii.gz)", ["gz", "nii"],
+    ["Normal", "Dilated cardiomyopathy", "Hypertrophic cardiomyopathy",
+     "Previous myocardial infarction", "Right ventricular abnormality"],
+    predict_mri,
+    "Plan: segment, measure volumes and ejection fraction, then classify the measurements.",
+)
+
+scan_section(
+    5, "Echo images: aortic stenosis (TMED-2)",
+    "Echo images from one study (PNG or JPG)", ["png", "jpg", "jpeg"],
+    ["No aortic stenosis", "Early aortic stenosis", "Significant aortic stenosis"],
+    predict_valve,
+    "Covers the aortic valve only, not valve disease in general.",
+    multiple=True,
+)

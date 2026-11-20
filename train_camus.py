@@ -15,7 +15,10 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 DATA_PATH = r"c:\Users\gabit\Downloads\subject_based_dataset.hdf5\subject_based_dataset.hdf5"
-EPOCHS = 0
+RES = 192  # image size: 128 is faster, 192 keeps more detail
+K = 384 // RES
+MODEL_PATH = "models/camus_unet.pt" if RES == 128 else f"models/camus_unet_{RES}.pt"
+EPOCHS = 10
 BATCH = 16
 SEED = 42
 
@@ -46,9 +49,9 @@ with h5py.File(DATA_PATH, "r") as f:
         img = get("train", "4ch", phase, "frames")
         msk = get("train", "4ch", phase, "masks")
         n = img.shape[0]
-        # 384 -> 128 pixels: average 3x3 blocks for the images, keep every third pixel for the masks
-        img = img.reshape(n, 128, 3, 128, 3).mean(axis=(2, 4)).astype(np.float32)
-        msk = msk[:, 1::3, 1::3].astype(np.int64)
+        # 384 -> RES pixels: average KxK blocks for the images, keep every Kth pixel for the masks
+        img = img.reshape(n, RES, K, RES, K).mean(axis=(2, 4)).astype(np.float32)
+        msk = msk[:, K // 2::K, K // 2::K].astype(np.int64)
         data[phase] = (img, msk)
 
 ed_img, ed_msk = data["ed"]
@@ -160,10 +163,10 @@ for epoch in range(1, EPOCHS + 1):
     print(f"epoch {epoch}/{EPOCHS}  loss {total / len(Xtr):.3f}  validation Dice {d:.3f}  [{(time.time() - t0) / 60:.1f} min]")
     if d > best:
         best = d
-        torch.save(model.state_dict(), "models/camus_unet.pt")
+        torch.save(model.state_dict(), MODEL_PATH)
 
 # ---------- final check on patients the model never saw ----------
-model.load_state_dict(torch.load("models/camus_unet.pt", map_location=device))
+model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
 pred_ed = predict(model, norm(ed_img[test_p]))
 pred_es = predict(model, norm(es_img[test_p]))
 dice = dice_lv(np.concatenate([pred_ed, pred_es]), np.concatenate([ed_msk[test_p], es_msk[test_p]]))
@@ -176,4 +179,4 @@ mae = np.abs(ef_true[ok] - ef_pred[ok]).mean() * 100
 baseline = np.abs(ef_true[ok] - np.nanmedian(rough_ef(ed_msk[train_p], es_msk[train_p]))).mean() * 100
 print(f"Rough EF error vs the expert masks: {mae:.1f} percentage points on {ok.sum()} test patients")
 print(f"Baseline (give everyone the typical EF): {baseline:.1f} percentage points")
-print("Saved models/camus_unet.pt and models/camus_split.npz")
+print(f"Saved {MODEL_PATH} and models/camus_split.npz")
