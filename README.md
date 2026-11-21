@@ -2,7 +2,7 @@
 
 A learning project that started as a heart disease risk estimator and grew into a multi-section prototype for exploring how machine learning can work with different kinds of cardiac data: clinical measurements, echocardiograms, ECGs and cardiac MRI.
 
-> **Not a medical tool.** Everything here is a research and learning prototype built on small, older, public datasets. It has not been validated on real clinical cases and must not be used to diagnose, screen or make decisions about anyone's health.
+> **Not a medical tool.** Everything in this project is a research and learning prototype built on small, older, public datasets. It has not been validated on real clinical cases and must not be used to diagnose, screen or make decisions about anyone's health.
 
 ## What is built and what is planned
 
