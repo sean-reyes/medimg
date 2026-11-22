@@ -154,7 +154,7 @@ if es:
 
 @st.cache_resource
 def load_echo():
-    import echo_model
+    from section2_echo import echo_model
     return echo_model, echo_model.load_model()
 
 
