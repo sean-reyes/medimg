@@ -140,7 +140,7 @@ Upload an ED frame and an ES frame from the same patient and click **Analyse fra
 
 The thresholds for these rules are placeholders chosen by reasoning, not tuned on held-out data.
 
-## <u>To try it, run `export_test_frames.py` to save a few test patients as PNG files in `test_frames/`, then upload the matching ED and ES images. Frames from the same dataset only show that the app works, not that the model generalizes.</u>
+<u>To try it, run `export_test_frames.py` to save a few test patients as PNG files in `test_frames/`, then upload the matching ED and ES images. Frames from the same dataset only show that the app works, not that the model generalizes.</u>
 
 ## Sections 3 to 5: planned
 
