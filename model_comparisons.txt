@@ -1,3 +1,5 @@
+# This is just a comparison between the different categories and the different models which led me toc hoose logistic regression over random forest
+
 Baseline/Normal:
     Always guess majority: 0.553 (+/- 0.003)
     Logistic regression: 0.816 (+/- 0.004)
