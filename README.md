@@ -138,7 +138,7 @@ Upload an ED frame and an ES frame from the same patient and click **Analyse fra
 - **"Unsure" and no number**, if the outline is fragmented, the squeezed ventricle looks larger than the filled one, or the EF is outside a plausible range (10% to 85%).
 - **A rejection**, if the images are far from square or no ventricle is found.
 
-The thresholds for these rules are placeholders chosen by reasoning, not tuned on held-out data.
+IMPORTANT: The thresholds for these rules are placeholders chosen by reasoning, not tuned on held-out data.
 
 <u>To try it, run `export_test_frames.py` to save a few test patients as PNG files in `test_frames/`, then upload the matching ED and ES images. Frames from the same dataset only show that the app works, not that the model generalizes.</u>
 
