@@ -91,7 +91,7 @@ Test set (184 patients, logistic regression), accuracy **0.83**:
 
 The model was trained on total cholesterol only, so the app turns LDL, HDL and triglycerides into total cholesterol (LDL + HDL + triglycerides / 5) before predicting. Fasting blood sugar is entered as a number and converted to the dataset's yes/no (above 120 mg/dl). Blood pressure is the top (systolic) number only. The app warns when the maximum heart rate is below 85% of the age-predicted maximum (220 minus age), because a stress test that short can be inconclusive.
 
-## Section 2: echo ejection fraction
+## Section 2: Echo Ejection Fraction
 
 Ejection fraction (EF) is the percentage of the blood in the left ventricle that it pumps out with each beat. It is estimated from the ventricle's size at its fullest (end of filling, ED) and its smallest (end of squeezing, ES). The section outlines the ventricle on an ED and an ES frame, estimates EF, and refuses or flags results that look wrong.
 
@@ -142,7 +142,7 @@ IMPORTANT: The thresholds for these rules are placeholders chosen by reasoning, 
 
 <u>To try it, run `export_test_frames.py` to save a few test patients as PNG files in `test_frames/`, then upload the matching ED and ES images. Frames from the same dataset only show that the app works, not that the model generalizes.</u>
 
-## Sections 3 to 5: planned
+## Sections 3 to 5: WIP
 
 None of these use the clinical dataset above. Each needs its own labeled data, and each candidate dataset comes from a single institution. They are listed here as plans, and their references will be added if and when they are used.
 
