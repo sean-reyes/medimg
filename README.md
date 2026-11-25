@@ -91,7 +91,7 @@ Test set (184 patients, logistic regression), accuracy **0.83**:
 
 The model was trained on total cholesterol only, so the app turns LDL, HDL and triglycerides into total cholesterol (LDL + HDL + triglycerides / 5) before predicting. Fasting blood sugar is entered as a number and converted to the dataset's yes/no (above 120 mg/dl). Blood pressure is the top (systolic) number only. The app warns when the maximum heart rate is below 85% of the age-predicted maximum (220 minus age), because a stress test that short can be inconclusive.
 
-## Section 2: echo ejection fraction
+## Section 2: Echo Ejection Fraction
 
 Ejection fraction (EF) is the percentage of the blood in the left ventricle that it pumps out with each beat. It is estimated from the ventricle's size at its fullest (end of filling, ED) and its smallest (end of squeezing, ES). The section outlines the ventricle on an ED and an ES frame, estimates EF, and refuses or flags results that look wrong.
 
@@ -123,7 +123,7 @@ Ejection fraction (EF) is the percentage of the blood in the left ventricle that
 
 ### Observations
 
-- **Resolution helped.** Going from 128 to 192 pixels improved every EF number, and the validation Dice was still rising at epoch 10, so more training may help further.
+- **Resolution helped.** Going from 128 pixels to 192 pixels improved every EF number, and the validation Dice was still rising at epoch 10, so more training may help further.
 - **Good outlines do not guarantee a good EF.** EF is a ratio, and the squeezed ventricle is small, so a few misplaced pixels there move it a lot. The 128-pixel model had a test Dice of 0.912 but an EF error barely better than the baseline.
 - **Cleaning up stray pixels did not help.** Keeping only the largest ventricle region changed nothing at 128 pixels and made the 192-pixel result slightly worse (mean error 6.0, 79% within 10 points), so it is not used.
 - **An extreme patient.** One patient had a rough EF near 3%, with ED and ES frames that look almost the same. The outlines looked correct, so it was kept. It may be a genuinely very weak heart or poorly chosen frames.
@@ -142,7 +142,7 @@ IMPORTANT: The thresholds for these rules are placeholders chosen by reasoning, 
 
 <u>To try it, run `export_test_frames.py` to save a few test patients as PNG files in `test_frames/`, then upload the matching ED and ES images. Frames from the same dataset only show that the app works, not that the model generalizes.</u>
 
-## Sections 3 to 5: planned
+## Sections 3 to 5: WIP
 
 None of these use the clinical dataset above. Each needs its own labeled data, and each candidate dataset comes from a single institution. They are listed here as plans, and their references will be added if and when they are used.
 
