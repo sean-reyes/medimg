@@ -34,7 +34,7 @@ Any mistakes in this project are my own.
 
 ### Data
 
-- **Source:** the UCI Heart Disease dataset [2], released under CC BY 4.0, which combines four databases: Cleveland, Hungary, Switzerland and the VA Long Beach. This project uses the combined file of 920 patients with 16 columns. Add the link to where you downloaded your copy: [add link].
+- **Source:** the UCI Heart Disease dataset [2], released under CC BY 4.0, which combines four databases: Cleveland, Hungary, Switzerland and the VA Long Beach. This project uses the combined file of 920 patients with 16 columns. (https://www.kaggle.com/datasets/redwankarimsony/heart-disease-data/data).
 - **Label:** the original `num` column records angiographic disease status from 0 (no disease) to 4 (increasing severity). It was turned into a yes/no `target` (1 if `num` > 0). The original study is [1].
 
 ### Cleaning
