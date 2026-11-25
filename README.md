@@ -123,7 +123,7 @@ Ejection fraction (EF) is the percentage of the blood in the left ventricle that
 
 ### Observations
 
-- **Resolution helped.** Going from 128 to 192 pixels improved every EF number, and the validation Dice was still rising at epoch 10, so more training may help further.
+- **Resolution helped.** Going from 128 pixels to 192 pixels improved every EF number, and the validation Dice was still rising at epoch 10, so more training may help further.
 - **Good outlines do not guarantee a good EF.** EF is a ratio, and the squeezed ventricle is small, so a few misplaced pixels there move it a lot. The 128-pixel model had a test Dice of 0.912 but an EF error barely better than the baseline.
 - **Cleaning up stray pixels did not help.** Keeping only the largest ventricle region changed nothing at 128 pixels and made the 192-pixel result slightly worse (mean error 6.0, 79% within 10 points), so it is not used.
 - **An extreme patient.** One patient had a rough EF near 3%, with ED and ES frames that look almost the same. The outlines looked correct, so it was kept. It may be a genuinely very weak heart or poorly chosen frames.
