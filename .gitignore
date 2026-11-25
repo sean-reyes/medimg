@@ -3,3 +3,13 @@
 *.pt
 *.pth
 *.npz
+
+models/
+data/camus/
+data/camus_kaggle/
+data/ptbxl/
+cache/
+test_frames/
+sample_ecg.csv
+__pycache__/
+*.zip
