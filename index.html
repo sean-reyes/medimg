@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cardia — Research Console</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 21s-7.2-4.35-9.45-8.7C.4 8.23 2.78 4.5 7.1 4.5c2.1 0 3.6 1.06 4.9 2.66C13.3 5.56 14.8 4.5 16.9 4.5c4.32 0 6.7 3.73 4.55 7.8C19.2 16.65 12 21 12 21Z"/><path d="M3.5 12h4l1.7-3.5 3 7 2.1-4h6.2"/></svg>
+      </div>
+      <span>Cardia</span>
+    </div>
+
+    <nav class="nav" aria-label="Primary navigation">
+      <button class="nav-item active" data-view="overview">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg>
+        <span>Overview</span>
+      </button>
+      <button class="nav-item" data-view="clinical">
+        <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.2-9-8.4C1 8.7 3.3 5 7.2 5c2 0 3.5 1 4.8 2.5C13.3 6 14.8 5 16.8 5c3.9 0 6.2 3.7 4.2 7.6C19 16.8 12 21 12 21Z"/></svg>
+        <span>Clinical risk</span>
+      </button>
+      <button class="nav-item" data-view="echo">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="12" cy="12" r="4"/><path d="M12 8c3 0 5 2 5 4s-2 4-5 4"/></svg>
+        <span>Echo analysis</span>
+      </button>
+      <button class="nav-item" data-view="ecg">
+        <svg viewBox="0 0 24 24"><path d="M3 12h4l2-5 4 10 2.5-7 1.5 2H21"/></svg>
+        <span>ECG patterns</span>
+      </button>
+      <button class="nav-item" data-view="mri">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg>
+        <span>Cardiac MRI</span>
+      </button>
+      <button class="nav-item" data-view="valve">
+        <svg viewBox="0 0 24 24"><path d="M5 4v16M19 4v16M5 12h14"/><path d="M8 7c3 2 5 2 8 0M8 17c3-2 5-2 8 0"/></svg>
+        <span>Aortic valve</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="status-dot"></div>
+      <div><strong>System ready</strong><span>Local models</span></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow" id="sectionLabel">Research console</p>
+        <h1 id="pageTitle">Overview</h1>
+      </div>
+      <div class="top-actions">
+        <button class="icon-button" aria-label="Notifications">
+          <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>
+          <span class="notification-dot"></span>
+        </button>
+        <div class="avatar">SR</div>
+      </div>
+    </header>
+
+    <section class="view active" id="overview">
+      <div class="notice">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 10v6M12 7h.01"/></svg>
+        <div><strong>Research prototype</strong><span>Not validated for clinical use. Do not use to diagnose or make decisions about health.</span></div>
+        <button class="notice-close" aria-label="Dismiss">×</button>
+      </div>
+
+      <div class="module-grid">
+        <article class="module-card featured" data-open="clinical">
+          <div class="module-icon coral">
+            <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.2-9-8.4C1 8.7 3.3 5 7.2 5c2 0 3.5 1 4.8 2.5C13.3 6 14.8 5 16.8 5c3.9 0 6.2 3.7 4.2 7.6C19 16.8 12 21 12 21Z"/></svg>
+          </div>
+          <div class="module-head"><div><span class="tag active-tag">Working</span><h2>Clinical risk</h2></div><span class="arrow">→</span></div>
+          <p>Estimate heart disease probability from routine clinical measurements.</p>
+          <div class="metric-row"><div><strong>83%</strong><span>Test accuracy</span></div><div><strong>184</strong><span>Test patients</span></div></div>
+        </article>
+
+        <article class="module-card" data-open="echo">
+          <div class="module-icon blue">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="12" cy="12" r="4"/><path d="M12 8c3 0 5 2 5 4s-2 4-5 4"/></svg>
+          </div>
+          <div class="module-head"><div><span class="tag active-tag">Working</span><h2>Echo analysis</h2></div><span class="arrow">→</span></div>
+          <p>Segment the left ventricle and estimate ejection fraction from paired frames.</p>
+          <div class="metric-row"><div><strong>82%</strong><span>Within 10 points</span></div><div><strong>67</strong><span>Test patients</span></div></div>
+        </article>
+
+        <article class="module-card" data-open="ecg">
+          <div class="module-icon violet">
+            <svg viewBox="0 0 24 24"><path d="M3 12h4l2-5 4 10 2.5-7 1.5 2H21"/></svg>
+          </div>
+          <div class="module-head"><div><span class="tag preview-tag">Preview</span><h2>ECG patterns</h2></div><span class="arrow">→</span></div>
+          <p>Classify 12-lead ECG signals across five broad pattern categories.</p>
+          <div class="metric-row"><div><strong>12</strong><span>Leads</span></div><div><strong>10 sec</strong><span>Recording</span></div></div>
+        </article>
+
+        <article class="module-card" data-open="mri">
+          <div class="module-icon amber">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg>
+          </div>
+          <div class="module-head"><div><span class="tag planned-tag">Planned</span><h2>Cardiac MRI</h2></div><span class="arrow">→</span></div>
+          <p>Explore cardiomyopathy patterns from cine MRI studies.</p>
+          <div class="empty-state-mini">ACDC dataset · No model connected</div>
+        </article>
+
+        <article class="module-card" data-open="valve">
+          <div class="module-icon green">
+            <svg viewBox="0 0 24 24"><path d="M5 4v16M19 4v16M5 12h14"/><path d="M8 7c3 2 5 2 8 0M8 17c3-2 5-2 8 0"/></svg>
+          </div>
+          <div class="module-head"><div><span class="tag planned-tag">Planned</span><h2>Aortic valve</h2></div><span class="arrow">→</span></div>
+          <p>Assess aortic stenosis severity from multiple echocardiogram images.</p>
+          <div class="empty-state-mini">TMED-2 dataset · No model connected</div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-ring"><span>2</span><small>/ 5</small></div>
+          <div><span class="tag active-tag">Project status</span><h2>Models connected</h2><p>Clinical and echo modules are available. MRI, valve and ECG training are still in progress.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="view" id="clinical">
+      <div class="panel">
+        <div class="panel-header"><div><h2>Clinical risk estimator</h2></div><span class="tag active-tag">Model connected</span></div>
+        <div class="risk-layout">
+          <div class="form-grid">
+            <label>Age <span>Years</span><input id="age" type="number" value="55" min="20" max="90"></label>
+            <label>Sex <span>Category</span><select><option>Male</option><option>Female</option></select></label>
+            <label>Chest pain type <span>Category</span><select><option>Typical angina</option><option>Atypical angina</option><option>Non-anginal pain</option><option>Asymptomatic</option></select></label>
+            <label>Resting BP <span>mm Hg</span><input id="bp" type="number" value="130" min="80" max="220"></label>
+            <label>Maximum heart rate <span>bpm</span><input id="hr" type="number" value="140" min="60" max="210"></label>
+            <label>LDL cholesterol <span>mg/dl</span><input id="ldl" type="number" value="110" min="0" max="400"></label>
+            <label>HDL cholesterol <span>mg/dl</span><input id="hdl" type="number" value="50" min="0" max="150"></label>
+            <label>Triglycerides <span>mg/dl</span><input id="tg" type="number" value="150" min="0" max="1000"></label>
+            <button class="primary-button" id="estimateRisk">Estimate risk <span>→</span></button>
+          </div>
+          <aside class="result-card" id="riskResult">
+            <span class="result-label">Estimated probability</span>
+            <div class="score-ring" id="riskRing"><strong id="riskScore">—</strong><small>risk</small></div>
+            <p id="riskCopy">Enter patient measurements, then run the estimator.</p>
+            <div class="result-note"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7h.01"/></svg><span>Prototype result only</span></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="echo">
+      <div class="panel">
+        <div class="panel-header"><div><span class="panel-kicker">Section 02</span><h2>Echo ejection fraction</h2></div><span class="tag active-tag">Model connected</span></div>
+        <div class="upload-grid">
+          <div class="upload-box" id="edBox"><input type="file" accept="image/png,image/jpeg" id="edInput"><div class="upload-icon">ED</div><strong>End-diastole</strong><span>Frame at end of filling</span><button class="secondary-button">Choose image</button></div>
+          <div class="upload-box" id="esBox"><input type="file" accept="image/png,image/jpeg" id="esInput"><div class="upload-icon">ES</div><strong>End-systole</strong><span>Frame at end of squeezing</span><button class="secondary-button">Choose image</button></div>
+        </div>
+        <div class="echo-footer"><div class="pair-status"><span id="pairStatus" class="status-pill">0 of 2 frames</span><span>Use the same patient and four-chamber view</span></div><button class="primary-button" id="analyseEcho" disabled>Analyse frames <span>→</span></button></div>
+        <div class="echo-result" id="echoResult" hidden><div class="placeholder-result"><div class="scan-preview">LV</div><div><span class="result-label">Estimated ejection fraction</span><h3 id="efScore">—</h3><p id="efCopy">Upload a matched pair to preview the result.</p></div></div></div>
+      </div>
+    </section>
+
+    <section class="view" id="ecg">
+      <div class="panel">
+        <div class="panel-header"><div><span class="panel-kicker">Section 03</span><h2>ECG pattern classifier</h2></div><span class="tag preview-tag">Preview</span></div>
+        <div class="ecg-layout">
+          <div class="ecg-upload"><div class="upload-icon">CSV</div><strong>Upload 12-lead ECG</strong><span>1000 rows × 12 columns · 10 seconds</span><label class="secondary-button">Choose CSV<input type="file" accept=".csv" id="ecgInput" hidden></label></div>
+          <div class="ecg-chart"><div class="chart-header"><strong>Lead I preview</strong><span id="ecgFileName">No file selected</span></div><div class="ecg-grid"><svg id="ecgSvg" viewBox="0 0 700 220" preserveAspectRatio="none"><path id="ecgPath" d="M0 110 L700 110"/></svg></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="mri"><div class="panel coming-soon"><div class="coming-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg></div><span class="tag planned-tag">Planned module</span><h2>Cardiac MRI</h2><p>ACDC study classification is not connected yet.</p><button class="secondary-button" data-open="overview">Back to overview</button></div></section>
+    <section class="view" id="valve"><div class="panel coming-soon"><div class="coming-icon"><svg viewBox="0 0 24 24"><path d="M5 4v16M19 4v16M5 12h14"/><path d="M8 7c3 2 5 2 8 0M8 17c3-2 5-2 8 0"/></svg></div><span class="tag planned-tag">Planned module</span><h2>Aortic stenosis</h2><p>TMED-2 study classification is not connected yet.</p><button class="secondary-button" data-open="overview">Back to overview</button></div></section>
+  </main>
+  <script src="./script.js"></script>
+</body>
+</html>
