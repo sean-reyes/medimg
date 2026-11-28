@@ -193,7 +193,7 @@ Calibration, test fold (lower is better for both measures; AUROC did not change,
 
 Upload a CSV of 1,000 rows by 12 lead columns (10 seconds at 100 Hz, millivolts, PTB-XL lead order, no header). The app plots the first lead and shows a calibrated score for each category, marking those above their cut-off as flagged. It rejects a file with the wrong shape, missing or non-numeric values, values too large to be millivolts, or several flat leads. It says "Unsure" when no category reaches its cut-off, and warns when "normal" and an abnormal pattern are flagged together. `sample_ecg.csv`, a test-fold ECG saved by the training script, can be used to try it. Real ECG machines export other formats, so the CSV is a stand-in, and converting photos or PDFs of ECGs is future work.
 
-## Sections 4 and 5: planned
+## Sections 4 and 5: Work In Progress
 
 Neither is built. Each needs its own labeled data, and each candidate dataset comes from a single institution. Their references will be added if and when they are used.
 
